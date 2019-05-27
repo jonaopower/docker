@@ -6,6 +6,8 @@ systemctl status docker
 #Confirmar se existem containers em execucao
 docker container ls
 
+# Parar containers que estiverem rodando
+docker container stop id_container
 
 # Verificar parametros do arquivo Dockerfile e modificar caso necessario
 cat Dockerfile
