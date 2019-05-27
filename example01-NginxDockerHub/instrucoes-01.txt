@@ -1,0 +1,55 @@
+#Confirmar Docker Daemon está rodando
+docker version
+ps aux | grep docker
+systemctl status docker
+
+#Confirmar se existem containers em execucao
+docker container ls
+
+
+#Rodar container em primeiro plano e ver logs
+docker container run -p 8080:80 nginx
+
+
+#Rodar container em segundo plano 
+docker container run -d -p 8080:80 nginx
+
+
+###Observar que neste momento nao foi feito download da imagem novamente, pois ja estava local
+
+
+#Verificar se container está rodando
+docker container ls
+
+#Verificar imagens baixadas
+docker image ls
+
+
+#Testar parar e subir container
+docker container stop id_container
+docker container start id_container
+
+#Tentar apagar container
+docker container rm id_container
+
+
+#Parar container
+docker container stop id_container
+
+
+#Verificar se container está rodando
+docker container ls
+
+
+#Verificar historico execucao containers
+docker container ls -a
+
+
+#Apagar Container
+docker container rm id_container
+
+
+#Verificar e Apagar imagem local nginx
+docker image ls
+docker image rm nome_imagem
+docker image rm --force nome_imagem

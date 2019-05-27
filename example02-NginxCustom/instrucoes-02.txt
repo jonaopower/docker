@@ -1,0 +1,31 @@
+#Confirmar Docker Daemon está rodando
+docker version
+ps aux | grep docker
+systemctl status docker
+
+#Confirmar se existem containers em execucao
+docker container ls
+
+
+#Rodar container em segundo plano 
+docker container run -d -p 8080:80 nginx
+
+
+#Verificar se container está rodando e pegar seu id
+docker container ls
+
+#Entrar dentro do container em modo interativo (shell)
+docker exec -ti id_container bash
+
+
+# Entrar no diretorio raiz do nginx
+cd /usr/share/nginx/html
+
+
+#Modificar arquivo index.html
+echo "TESTE" > index.html
+echo "<iframe width='560' height='315' src='https://www.youtube.com/embed/J4NnmbbSizQ?start=50' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>" >> index.html
+
+#Sair do container
+exit
+

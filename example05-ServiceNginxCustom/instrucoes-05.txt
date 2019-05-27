@@ -1,0 +1,85 @@
+#Confirmar Docker Daemon está rodando
+docker version
+ps aux | grep docker
+systemctl status docker
+
+#Confirmar se existem containers em execucao
+docker container ls
+
+
+# Verificar parametros do arquivo Dockerfile e modificar caso necessario
+cat Dockerfile
+
+
+# Criar sua imagem personalizada (build) a partir do arquivo Dockerfile
+docker build -t example05 .
+
+# Conferir imagem criada
+docker image ls
+
+
+# Iniciar orquestrador SWARM
+docker swarm init
+
+
+#Gerar comando para inserir demais nos no cluster
+docker swarm join-token worker
+docker swarm join-token manager
+
+
+# Copiar e colar comando  no demais nos para ingressarem no cluster SWARM (worker ou manager)
+docker swarm join --token token_gerado enderecoIP:2377
+
+
+# Verificar (a partir de um manager) nos que estao no cluster e seus papeis
+docker node ls
+
+
+# Verificar containers em execucao por no
+docker node ps host1 host2
+
+
+# Criar novo servico rodando nginx
+docker service create --name service_example05 -p 8080:80 --replicas 6 example05
+
+
+#Verificar nome dos nos e quantidade de containers em execucao por no
+docker node ls
+docker node ps linux-lab01.localdomain linux-lab02.localdomain linux-lab03.localdomain
+
+
+# Aumentando as replicas para 12
+docker service scale service_example05=12
+
+
+#Verificar nome dos nos e quantidade de containers em execucao por no
+docker node ls
+docker node ps linux-lab01.localdomain linux-lab02.localdomain linux-lab03.localdomain
+
+
+#Parar servico criado
+docker service rm service_example05
+
+
+# Confirmar se containers foram encerrados
+docker node ps linux-lab01.localdomain linux-lab02.localdomain linux-lab03.localdomain
+
+
+# Recriar servico com restricao de CPU e memoria por container
+docker service create --name service_example05 -p 8080:80 --replicas 6 --limit-cpu 0.2 --limit-memory 32M example05
+
+
+# Validar no browser fazendo varios acessos
+
+
+# Verificar logs do servico para verificar load balance
+docker service logs -f service_example05
+
+
+# Verificar estatisticas dos containers
+docker stats
+
+
+#Parar Servico e checar containers parando
+docker service rm service_example05
+docker container ls

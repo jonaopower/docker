@@ -1,0 +1,32 @@
+#Confirmar Docker Daemon está rodando
+docker version
+ps aux | grep docker
+systemctl status docker
+
+#Confirmar se existem containers em execucao
+docker container ls
+
+
+# Verificar parametros do arquivo Dockerfile e modificar caso necessario
+cat Dockerfile
+
+
+# Criar sua imagem personolizada (build) a partir do arquivo Dockerfile
+docker build -t example04 .
+
+# Conferir imagem criada
+docker image ls
+
+
+# Criar container e rodar a partir da nova imagem criada publicando na porta 8080 e montando volume local host
+docker container run -d -p 8080:80 -v /root/docker/example04-NginxCustomMount:/usr/share/nginx/html example04
+
+
+# Validar no browser
+
+# Entrar no container e validar se montou corretamente
+docker exec -ti id_container bash
+cd /usr/share/nginx/html
+ls -lha
+
+# Modificar index.html no host e verificar se refletiu na aplicacao publicada

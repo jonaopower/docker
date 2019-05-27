@@ -1,0 +1,45 @@
+#Confirmar Docker Daemon está rodando
+docker version
+ps aux | grep docker
+systemctl status docker
+
+#Confirmar se existem containers em execucao
+docker container ls
+
+
+# Verificar parametros do arquivo Dockerfile e modificar caso necessario
+cat Dockerfile
+
+
+# Criar sua imagem personolizada (build) a partir do arquivo Dockerfile
+docker build -t nome_imagem .
+
+# Conferir imagem criada
+docker image ls
+
+
+# Criar container e rodar a partir da nova imagem criada publicando na porta 8080
+docker container run -d -p 8080:80 nome_imagem
+
+
+# Validar no browser
+
+# Autenticar Docker Hub com username e senha
+docker login
+
+#Verificar o ID da imagem a que será enviada para o Docker HUB
+docker image
+
+#Adicionar um tag (ou versao) na imagem
+docker tag id_imagem hubusername/nome_imagem:tag
+
+#Enviar imagem para docker HUB
+docker push hubusername/nome_imagem
+
+
+#Para salvar a imagem em um arquivo
+docker save nome_imagem > arquivo.tar
+
+
+#Para carregar a imagem de um arquivo salvo
+docker load --input arquivo.tar

@@ -1,0 +1,63 @@
+#Confirmar Docker Daemon está rodando
+docker version
+ps aux | grep docker
+systemctl status docker
+
+
+#Verificar se docker compose esta instalado
+yum install docker-compose
+
+#Confirmar se existem containers em execucao e para-los
+docker container ls
+
+
+#Confirmar se existem serviços em execução e para-los
+docker service ls
+
+
+# Verificar parametros do arquivo docker-compose.yml e modificar caso necessario
+cat docker-compose.yml 
+
+
+# Deploy do stack
+docker stack deploy -c docker-compose.yml example08
+
+
+# Confirmar stacks em execucao 
+docker stack services example08
+
+
+#Confirmar Servicos criados pelo stack
+docker stack services example08
+
+
+# Conferir containers em execucao
+docker container ls
+
+# Conferir servicos em execucao
+docker service ls
+
+#Verificar distribuição dos container nos nodes do swarm
+docker node ls
+docker node ps server1 server2 server 3
+
+
+# Fazer varios acessos e verificar logs do service, para validar load balance
+docker service ls
+docker service logs -f example08_wordpress
+
+
+# Para um container e verificar se um novo sera criado em seu lugar
+docker container ls
+docker container stop id_container
+
+
+#Verificar estatisticas dos containers
+docker stats
+
+# Para stack
+docker stack rm example08
+
+
+# Tente rodar a partir do Compose e observe as mensagens de alerta
+docker-compose up -d
