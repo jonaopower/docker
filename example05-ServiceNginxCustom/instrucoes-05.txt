@@ -39,8 +39,8 @@ docker node ls
 docker node ps host1 host2
 
 
-# Criar novo servico rodando nginx
-docker service create --name service_example05 -p 8080:80 --replicas 6 example05
+# Criar novo servico rodando imagem enviada para Docker Hub
+docker service create --name imagem_hub -p 8080:80 --replicas 6 hubUserName/imagem_hub:tag
 
 
 #Verificar nome dos nos e quantidade de containers em execucao por no
@@ -49,7 +49,7 @@ docker node ps linux-lab01.localdomain linux-lab02.localdomain linux-lab03.local
 
 
 # Aumentando as replicas para 12
-docker service scale service_example05=12
+docker service scale imagem_hub=12
 
 
 #Verificar nome dos nos e quantidade de containers em execucao por no
@@ -58,7 +58,7 @@ docker node ps linux-lab01.localdomain linux-lab02.localdomain linux-lab03.local
 
 
 #Parar servico criado
-docker service rm service_example05
+docker service rm imagem_hub
 
 
 # Confirmar se containers foram encerrados
@@ -66,14 +66,14 @@ docker node ps linux-lab01.localdomain linux-lab02.localdomain linux-lab03.local
 
 
 # Recriar servico com restricao de CPU e memoria por container
-docker service create --name service_example05 -p 8080:80 --replicas 6 --limit-cpu 0.2 --limit-memory 32M example05
+docker service create --name imagem_hub -p 8080:80 --replicas 6 --limit-cpu 0.2 --limit-memory 32M hubUserName/imagem_hub:tag
 
 
 # Validar no browser fazendo varios acessos
 
 
 # Verificar logs do servico para verificar load balance
-docker service logs -f service_example05
+docker service logs -f imagem_hub
 
 
 # Verificar estatisticas dos containers
@@ -81,5 +81,5 @@ docker stats
 
 
 #Parar Servico e checar containers parando
-docker service rm service_example05
+docker service rm imagem_hub
 docker container ls
