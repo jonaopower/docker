@@ -20,22 +20,24 @@ cat docker-compose.yml
 
 
 # Deploy do stack
-docker stack deploy -c docker-compose.yml example-04
+docker stack deploy -c docker-compose.yml example07
 
 
 # Confirmar stacks em execucao 
-docker stack services example-04
+docker stack ls
 
 
 #Confirmar Servicos criados pelo stack
-docker stack services example-04
+docker stack services example07
+
+
+# Confirmar servicos em execucao
+docker service ls
 
 
 # Conferir containers em execucao
 docker container ls
 
-# Conferir servicos em execucao
-docker service ls
 
 #Verificar distribuição dos container nos nodes do swarm
 docker node ls
@@ -44,16 +46,11 @@ docker node ps server1 server2 server 3
 
 # Fazer varios acessos e verificar logs do service, para validar load balance
 docker service ls
-docker service logs -f example-04_web
-
-
-# Para um container e verificar se um novo sera criado em seu lugar
-docker container ls
-docker container stop id_container
+docker service logs -f example07_web
 
 
 #Verificar estatisticas dos containers
 docker stats
 
 # Para stack
-docker stack rm example-04
+docker stack rm example07

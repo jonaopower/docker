@@ -1,0 +1,39 @@
+#Confirmar Docker Daemon está rodando
+docker version
+ps aux | grep docker
+systemctl status docker
+
+#Confirmar se existem containers em execucao
+docker container ls
+
+
+# Conferir imagem criada
+docker image ls
+
+
+# Iniciar orquestrador SWARM (caso ainda nao esteja inicializado)
+docker swarm init
+
+
+#Gerar comando para inserir demais nos no cluster (caso ainda nao estejam inseridos)
+docker swarm join-token worker
+docker swarm join-token manager
+
+
+# Copiar e colar comando nos demais nos para ingressarem no cluster SWARM (worker ou manager) (caso ainda nao estejam inseridos)
+docker swarm join --token token_gerado enderecoIP:2377
+
+
+# Verificar (a partir de um manager) nos que estao no cluster e seus papeis
+docker node ls
+
+
+# Verificar containers em execucao por no
+docker node ps host1 host2
+
+
+# Criar novo servico Docker Hub (repositorio dockersamples)
+docker service create --name=viz --publish=8090:8080 --constraint=node.role==manager --mount=type=bind,src=/var/run/docker.sock,dst=/var/run/docker.sock dockersamples/visualizer
+
+
+# Acessar via Browser
